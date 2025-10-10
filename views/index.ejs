@@ -1,32 +1,32 @@
 <div class="author">
-    <h1 class="author__heading">Hi, I am Anikesh</h1>
-    <p class="author__body">A Web developer</p>
-  </div>
-  
-  <img src="/image/img1.jpg" alt="person looking out through window" class="hero-image">
-  
-  <section class="articles">
-    <h2 class="articles__heading">Latest Posts</h2>
-  
-    <ul class="article-ul">
-      <% data.forEach(post => { %>
-        <li>
-          <a href="/post/<%= post._id %>">
-            <span><%= post.title %></span>
-            <span class="article-list__date"><%= post.createdAt.toDateString() %></span>
-          </a>
-        </li>
-      <% }) %>
-    </ul>
-  
-  
-    <% if (nextPage !== null) { %>
-      <a href="/?page=<%= nextPage %>" class="pagination">&lt; View Older Posts</a>
-    <% } %>
-   
-  
-    
-  
-  
-  
-  </section>
+  <h1 class="author__heading">Hi, I am Anikesh</h1>
+  <p class="author__body">A Web developer</p>
+</div>
+
+<img src="/image/img1.jpg" alt="person looking out through window" class="hero-image">
+
+<div class="create-post">
+  <a href="/create" class="btn-create">+ Write a Post</a>
+</div>
+<section class="articles">
+  <h2 class="articles__heading">Latest Posts</h2>
+<ul class="article-ul">
+  <% data.forEach(post => { %>
+    <li class="article-item">
+      <a href="/post/<%= post._id %>">
+        <span><%= post.title %></span>
+        <span class="article-list__date"><%= post.createdAt.toDateString() %></span>
+      </a>
+      <!-- Small delete icon -->
+      <form action="/delete/<%= post._id %>" method="POST" class="delete-form">
+        <button type="submit" class="delete-icon" title="Delete Post">✖️</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+
+
+  <% if (nextPage !== null) { %>
+    <a href="/?page=<%= nextPage %>" class="pagination">&lt; View Older Posts</a>
+  <% } %>
+</section>

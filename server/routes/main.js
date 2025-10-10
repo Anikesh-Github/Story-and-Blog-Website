@@ -127,6 +127,54 @@ router.get('/about', (req, res) => {
     currentRoute: '/about'
   });
 });
+ 
+
+router.get('/create', (req, res) => {
+  const locals = {
+    title: "Create Post",
+    description: "Write a new blog post"
+  };
+  res.render('create', { locals, currentRoute: '/create' });});
+/**
+ * POST /delete/:id
+ * Delete a post by ID
+ */
+router.post('/delete/:id', async (req, res) => {
+  try {
+    const postId = req.params.id;
+    await Post.findByIdAndDelete(postId);
+    res.redirect('/'); // Back to homepage after deletion
+  } catch (error) {
+    console.log(error);
+    res.send("Error deleting post");
+  }
+});
+
+/**
+ * POST /create
+ * Save new post to database
+ */
+router.post('/create', async (req, res) => {
+  try {
+    const { title, body } = req.body;
+
+    if (!title || !body) {
+      return res.send("Title and body are required!");
+    }
+
+    const newPost = new Post({
+      title,
+      body,
+      createdAt: new Date()
+    });
+
+    await newPost.save();
+    res.redirect('/'); // Redirect to homepage after saving
+  } catch (error) {
+    console.log(error);
+    res.send("Error creating post");
+  }
+});
 
 
 function insertPostData() {
