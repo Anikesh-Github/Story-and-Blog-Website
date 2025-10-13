@@ -129,11 +129,51 @@ router.get('/about', (req, res) => {
 });
  
 
+
+
+  /**
+ * GET /contact
+ */
+// GET /contact
+router.get('/contact', (req, res) => {
+  const locals = {
+    title: "Contact Us",
+    description: "Get in touch with us"
+  };
+
+  res.render('contact', {
+    locals,
+    currentRoute: '/contact'
+  });
+});
+
+// POST /contact
+router.post('/contact', (req, res) => {
+  const { name, email, message } = req.body;
+  console.log(`Message from ${name} (${email}): ${message}`);
+
+  const locals = {
+    title: "Contact Us",
+    description: "Get in touch with us"
+  };
+
+  res.render('contact', {
+    locals,
+    currentRoute: '/contact',
+    successMessage: "Thank you for contacting us!"
+  });
+});
+
 router.get('/create', (req, res) => {
   const locals = {
     title: "Create Post",
     description: "Write a new blog post"
   };
+  /**
+ * GET /contact
+ */
+
+
   res.render('create', { locals, currentRoute: '/create' });});
 /**
  * POST /delete/:id
